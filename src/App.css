@@ -1,5 +1,8 @@
 .App {
   text-align: center;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
 }
 
 .App-logo {
@@ -42,6 +45,11 @@
   border-radius: 10px;
   margin: 0px;
   padding: 0px;
+  left:100px;
+  top:20px;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
 }
 
 .left-bin {
@@ -65,6 +73,9 @@
   border-bottom: 0px solid;
   display: inline;
   float: left;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
 }
 
 .left-bin .bottom-row {
@@ -101,6 +112,9 @@
 	border-bottom: 195px solid green;
   display: inline;
   float: left;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
 }
 
 .arrow-up.odd {
