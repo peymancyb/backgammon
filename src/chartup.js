@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import Draggable, {DraggableCore} from 'react-draggable'; // Both at the same time
 
 export default class ChartUP extends Component{
   constructor(props){
@@ -55,10 +56,12 @@ export default class ChartUP extends Component{
 
       for (let i = 0 ; i < numOfPieces ; i++){
         items.push(
+          <Draggable>
             <button
               onClick={()=>console.log(`dice: ${this.state.firstDice} ${this.state.secondDice} ${text}  `)}
               className="pieceWhite"
               key={i}/>
+          </Draggable>
           );
       }
       return(

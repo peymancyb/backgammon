@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
+import Draggable, {DraggableCore} from 'react-draggable'; // Both at the same time
+
 
 export default class ChartDown extends Component{
   constructor(props){
@@ -40,10 +42,12 @@ componentWillReceiveProps(nextProps){
       let items = [];
       for (let i = 0 ; i < numOfPieces ; i++){
         items.push(
+          <Draggable>
             <button
               onClick={()=>console.log(`dice: ${this.state.firstDice} ${this.state.secondDice} `)}
               className="pieceWhite"
               key={i}/>
+          </Draggable>
           );
       }
       return(
@@ -55,25 +59,25 @@ componentWillReceiveProps(nextProps){
 
   render(){
     return(
-      <div >
-        <div className="arrow-down odd">
-          {this.renderPieces(this.state.chart[0])}
-        </div>
-        <div className="arrow-down even">
-          {this.renderPieces(this.state.chart[1])}
-        </div>
-        <div className="arrow-down odd">
-          {this.renderPieces(this.state.chart[2])}
-        </div>
-        <div className="arrow-down even">
-          {this.renderPieces(this.state.chart[3])}
-        </div>
-        <div className="arrow-down odd">
-          {this.renderPieces(this.state.chart[4])}
-        </div>
-        <div className="arrow-down even">
-          {this.renderPieces(this.state.chart[5])}
-        </div>
+      <div>
+          <div className="arrow-down odd">
+              {this.renderPieces(this.state.chart[0])}
+          </div>
+          <div className="arrow-down even">
+            {this.renderPieces(this.state.chart[1])}
+          </div>
+          <div className="arrow-down odd">
+            {this.renderPieces(this.state.chart[2])}
+          </div>
+          <div className="arrow-down even">
+            {this.renderPieces(this.state.chart[3])}
+          </div>
+          <div className="arrow-down odd">
+            {this.renderPieces(this.state.chart[4])}
+          </div>
+          <div className="arrow-down even">
+            {this.renderPieces(this.state.chart[5])}
+          </div>
       </div>
     );
   }
