@@ -16,7 +16,7 @@ export default class ChartDown extends Component{
 componentDidMount(){
   if(this.props.status === "chartThree"){
     let arrThree = [];
-    arrThree.push(this.state.defaultBoard.slice(12,17));
+    arrThree.push(this.state.defaultBoard.slice(12,18));
     this.setState({
       chart: arrThree[0]
     });
@@ -41,7 +41,7 @@ componentWillReceiveProps(nextProps){
       for (let i = 0 ; i < numOfPieces ; i++){
         items.push(
             <button
-              onClick={()=>alert(`dice: ${this.state.firstDice} ${this.state.secondDice} `)}
+              onClick={()=>console.log(`dice: ${this.state.firstDice} ${this.state.secondDice} `)}
               className="pieceWhite"
               key={i}/>
           );

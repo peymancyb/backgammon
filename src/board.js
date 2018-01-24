@@ -10,8 +10,8 @@ export default class Board extends Component{
       defaultBoard:[
           2,0,0,0,0,0,
           0,0,0,0,0,5,
-          0,3,0,0,0,0,
           0,0,0,0,0,5,
+          0,3,0,0,0,0,
         ],
       firstDice:props.firstDice,
       secondDice:props.secondDice,

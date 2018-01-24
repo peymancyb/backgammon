@@ -40,21 +40,23 @@ export default class ChartUP extends Component{
     });
   }
 
-  renderPieces(numOfPieces){
+  renderPieces(numOfPieces,index){
       let items = [];
-      let state = this.state.whichChart;
-      var num = 0;
-
-      if(state === "charTwo"){
-
-      }else if(state === "charFour"){
-
+      let text= '';
+      if(this.state.whichChart === "charTwo"){
+        // console.log(this.state.defaultBoard.length);
+        // console.log(index);
+         text = `available: ${this.state.defaultBoard.length - (index+5)}`;
+      }else if(this.state.whichChart === "charFour"){
+        // console.log(this.state.defaultBoard.length);
+        // console.log(index);
+        text = `available: ${this.state.defaultBoard.length - (index+17) }`;
       }
 
       for (let i = 0 ; i < numOfPieces ; i++){
         items.push(
             <button
-              onClick={()=>alert(`dice: ${this.state.firstDice} ${this.state.secondDice}`)}
+              onClick={()=>console.log(`dice: ${this.state.firstDice} ${this.state.secondDice} ${text}  `)}
               className="pieceWhite"
               key={i}/>
           );
@@ -70,25 +72,25 @@ export default class ChartUP extends Component{
     return(
       <div>
         <div className="arrow-up odd" >
-          {this.renderPieces(this.state.chart[0])}
+          {this.renderPieces(this.state.chart[0],0)}
         </div>
         <div className="arrow-up even">
-          {this.renderPieces(this.state.chart[1])}
+          {this.renderPieces(this.state.chart[1],1)}
         </div>
         <div className="arrow-up odd">
-          {this.renderPieces(this.state.chart[2])}
+          {this.renderPieces(this.state.chart[2],2)}
 
         </div>
         <div className="arrow-up even">
-          {this.renderPieces(this.state.chart[3])}
+          {this.renderPieces(this.state.chart[3],3)}
 
         </div>
         <div className="arrow-up odd">
-          {this.renderPieces(this.state.chart[4])}
+          {this.renderPieces(this.state.chart[4],4)}
 
         </div>
         <div className="arrow-up even">
-          {this.renderPieces(this.state.chart[5])}
+          {this.renderPieces(this.state.chart[5],5)}
         </div>
       </div>
     );
