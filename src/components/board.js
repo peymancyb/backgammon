@@ -5,18 +5,6 @@ import ChartUP from './chartup';
 import { DragDropContext } from 'react-beautiful-dnd';
 
 
-
-
-
-
-// const =()=>{
-//   return(
-//
-//   );
-// };
-
-
-
 export default class Board extends Component{
   constructor(props){
     super(props);

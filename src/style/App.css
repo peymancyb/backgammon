@@ -92,13 +92,12 @@
 
 
 .columnShowDown{
-  transform: scaleY(-1);
   display: flex;
   flex: 1;
-  flex-direction: column;
+  flex-direction: column-reverse;
   height: 100px;
-  justify-content: flex-start;
-  align-items: flex-start;
+  justify-content: flex-end;
+  align-items: center;
   margin-top: 92px;
   margin-right: 10px;
 
