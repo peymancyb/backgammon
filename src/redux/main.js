@@ -1,26 +1,29 @@
-import {combineReducers,createStore} from 'redux';
+//first principle of redux is that everything changes in the app is stored in
+//a single object. this is called state or state tree
+//state tree is read only: it means we can't modify it
+//everytime we need to change the state we need to dispatch an action
 
-const backgammonReducer = (state,actions)=>{
+//an action is a plain JS object describing the changes
 
-};
+//dispatch:requires type to be defined
 
-const reducer = function(state,action){
-  //reducer: It describes how an action transforms the state into the next state.
-};
+//createStore: have the state of the application and it let to use dispatch and
+//we need to specify  reducer to know how state changes.
+//API's => getState():retrives the current state of redux state tree
+//API's => dispatch():lets to dispatch actions
+//API's => subscribe():it lets to register a callback
 
 
 
+//***pure functions do not change their arguments
+//***impure functions change their arguments or getting network requests
 
+//redux previous state => dispatch action => return next state this is called reducer
+
+
+//reducer: It describes how an action transforms the state into the next state.
 
 //createStore: Its API is { subscribe, dispatch, getState }.
-const store = createStore(reducer,{
-  defaultBoard:[
-      [2,0,0,0,0,0,]
-      [0,0,0,0,0,5,]
-      [0,0,0,0,0,5,]
-      [0,3,0,0,0,0,]
-    ],
-});
 
 
 // use subscribe() to update the UI in response to state changes.
@@ -28,30 +31,15 @@ const store = createStore(reducer,{
 //===================
 // The only way to mutate the internal state is to dispatch an action.
 // The actions can be serialized, logged or stored and later replayed.
-store.subscribe(()=>{
-  console.log("store changed: ",store.getState());
+
+import {combineReducers,createStore} from 'redux';
+import backgammonReducer from './reducers/backgammonReducer';
+import {firstDiceReducer,secondDiceReducer} from './reducers/diceReducer';
+
+const reducers = combineReducers({
+  defaultBoard: backgammonReducer,
+  firstDice: firstDiceReducer,
+  secondDice: secondDiceReducer,
 });
 
-
-
-
-// store.dispatch({
-//   type: "INC",
-//   payload: 1,
-// });
-// store.dispatch({
-//   type: "INC",
-//   payload: 1,
-// });
-// store.dispatch({
-//   type: "INC",
-//   payload: 1,
-// });
-// store.dispatch({
-//   type: "DEC",
-//   payload: 1,
-// });
-// store.dispatch({
-//   type: "DEC",
-//   payload: 1,
-// });
+const store = createStore(reducers);
