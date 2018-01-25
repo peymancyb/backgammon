@@ -13,18 +13,14 @@
 //API's => dispatch():lets to dispatch actions
 //API's => subscribe():it lets to register a callback
 
-
-
 //***pure functions do not change their arguments
 //***impure functions change their arguments or getting network requests
 
 //redux previous state => dispatch action => return next state this is called reducer
 
-
 //reducer: It describes how an action transforms the state into the next state.
 
 //createStore: Its API is { subscribe, dispatch, getState }.
-
 
 // use subscribe() to update the UI in response to state changes.
 // it can also be handy to persist the current state in the localStorage.

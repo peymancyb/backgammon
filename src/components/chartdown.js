@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import '../style/App.css';
 import Draggable from 'react-draggable'; // Both at the same time
+// import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
+// Draggable
 
 export default class ChartDown extends Component{
   constructor(props){
@@ -51,7 +53,7 @@ componentWillReceiveProps(nextProps){
           );
       }
       return(
-        <div>
+        <div className="columnShowUp">
           {items}
         </div>
       );

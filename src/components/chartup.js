@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import '../style/App.css';
 import Draggable from 'react-draggable'; // Both at the same time
+// import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+// Draggable
 
 export default class ChartUP extends Component{
   constructor(props){
@@ -65,7 +67,7 @@ export default class ChartUP extends Component{
           );
       }
       return(
-        <div style={{felx:1,flexDirection:"column"}}>
+        <div className="columnShowDown">
           {items}
         </div>
       );
@@ -73,7 +75,7 @@ export default class ChartUP extends Component{
 
   render(){
     return(
-      <div>
+      <div className='positionRelative'>
         <div className="arrow-up odd">
             {this.renderPieces(this.state.chart[0],0)}
         </div>
