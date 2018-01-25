@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import './style/App.css';
 import Board from './components/board';
-import path from 'path';
 
-
-console.log(path.resolve(__dirname));
 class App extends Component {
   constructor(props){
     super(props);
