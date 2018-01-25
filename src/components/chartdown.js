@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import '../style/App.css';
-import Draggable from 'react-draggable'; // Both at the same time
+// import Draggable from 'react-draggable'; // Both at the same time
 // import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
-// Draggable
 
 export default class ChartDown extends Component{
   constructor(props){
@@ -44,12 +43,10 @@ componentWillReceiveProps(nextProps){
       let items = [];
       for (let i = 0 ; i < numOfPieces ; i++){
         items.push(
-          <Draggable key={i}>
-            <button
-              onClick={()=>console.log(`dice: ${this.state.firstDice} ${this.state.secondDice} `)}
-              className="pieceWhite"
-              key={i}/>
-          </Draggable>
+              <button
+                onClick={()=>console.log(`dice: ${this.state.firstDice} ${this.state.secondDice} `)}
+                className="pieceWhite"
+                key={i}/>
           );
       }
       return(
@@ -61,26 +58,27 @@ componentWillReceiveProps(nextProps){
 
   render(){
     return(
-      <div>
-          <div className="arrow-down odd">
-              {this.renderPieces(this.state.chart[0])}
+
+          <div>
+              <div className="arrow-down odd">
+                  {this.renderPieces(this.state.chart[0])}
+              </div>
+              <div className="arrow-down even">
+                  {this.renderPieces(this.state.chart[1])}
+              </div>
+              <div className="arrow-down odd">
+                  {this.renderPieces(this.state.chart[2])}
+              </div>
+              <div className="arrow-down even">
+                  {this.renderPieces(this.state.chart[3])}
+              </div>
+              <div className="arrow-down odd">
+                  {this.renderPieces(this.state.chart[4])}
+              </div>
+              <div className="arrow-down even">
+                  {this.renderPieces(this.state.chart[5])}
+              </div>
           </div>
-          <div className="arrow-down even">
-              {this.renderPieces(this.state.chart[1])}
-          </div>
-          <div className="arrow-down odd">
-              {this.renderPieces(this.state.chart[2])}
-          </div>
-          <div className="arrow-down even">
-              {this.renderPieces(this.state.chart[3])}
-          </div>
-          <div className="arrow-down odd">
-              {this.renderPieces(this.state.chart[4])}
-          </div>
-          <div className="arrow-down even">
-              {this.renderPieces(this.state.chart[5])}
-          </div>
-      </div>
     );
   }
 }

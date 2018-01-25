@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import '../style/App.css';
 import ChartDown from './chartdown';
 import ChartUP from './chartup';
-import { DragDropContext } from 'react-beautiful-dnd';
+import PropTypes from 'prop-types';
+
 
 
 export default class Board extends Component{
@@ -15,6 +16,7 @@ export default class Board extends Component{
           0,0,0,0,0,5,
           0,3,0,0,0,0,
         ],
+        //black white active
       firstDice:props.firstDice,
       secondDice:props.secondDice,
     };
@@ -28,61 +30,52 @@ export default class Board extends Component{
     });
   }
 
-  onDragStart(){
 
-  }
-  onDragEnd(){
-
-  }
   render(){
     return(
-      <DragDropContext
-        onDragStart={this.onDragStart}
-        onDragEnd={this.onDragEnd}>
-          <div className = "board">
-            <div className="left-bin">
-              <div className="top-row">
-                <ChartDown
-                  status={"chartOne"}
-                  defaultBoard={this.state.defaultBoard}
-                  firstDice={this.state.firstDice}
-                  secondDice={this.state.secondDice}
+        <div className = "board">
+          <div className="left-bin">
+            <div className="top-row">
+              <ChartDown
+                status={"chartOne"}
+                defaultBoard={this.state.defaultBoard}
+                firstDice={this.state.firstDice}
+                secondDice={this.state.secondDice}
+              />
+            </div>
+
+            <div className="bottom-row">
+              <ChartUP
+                status={"charTwo"}
+                defaultBoard={this.state.defaultBoard}
+                firstDice={this.state.firstDice}
+                secondDice={this.state.secondDice}
                 />
-              </div>
-
-              <div className="bottom-row">
-                <ChartUP
-                  status={"charTwo"}
-                  defaultBoard={this.state.defaultBoard}
-                  firstDice={this.state.firstDice}
-                  secondDice={this.state.secondDice}
-                  />
-              </div>
-            </div>
-            <div className = "middle-bar">
-
-            </div>
-
-            <div className = "right-bin">
-              <div className="top-row">
-                <ChartDown
-                  status={"chartThree"}
-                  defaultBoard={this.state.defaultBoard}
-                  firstDice={this.state.firstDice}
-                  secondDice={this.state.secondDice}
-                  />
-              </div>
-              <div className="bottom-row">
-                <ChartUP
-                  status={"charFour"}
-                  defaultBoard={this.state.defaultBoard}
-                  firstDice={this.state.firstDice}
-                  secondDice={this.state.secondDice}
-                  />
-              </div>
             </div>
           </div>
-      </DragDropContext>
+          <div className = "middle-bar">
+
+          </div>
+
+          <div className = "right-bin">
+            <div className="top-row">
+              <ChartDown
+                status={"chartThree"}
+                defaultBoard={this.state.defaultBoard}
+                firstDice={this.state.firstDice}
+                secondDice={this.state.secondDice}
+                />
+            </div>
+            <div className="bottom-row">
+              <ChartUP
+                status={"charFour"}
+                defaultBoard={this.state.defaultBoard}
+                firstDice={this.state.firstDice}
+                secondDice={this.state.secondDice}
+                />
+            </div>
+          </div>
+        </div>
     );
   }
 }

@@ -5,10 +5,8 @@ const defaultBoard = [
     [0,3,0,0,0,0,]
   ];
 
-
 const backgammonReducer = (state=defaultBoard,actions)=>{
   return state;
 };
-
 
 export default backgammonReducer;

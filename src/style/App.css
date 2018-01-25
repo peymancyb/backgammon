@@ -1,3 +1,19 @@
+.buttonPeice{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: blue;
+  align-items:center;
+  justify-content: center;
+}
+
+.RowStyle{
+
+}
+
+
+
+
 .App {
   text-align: center;
   align-items: center;
