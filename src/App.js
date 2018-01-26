@@ -5,7 +5,7 @@ import Row from './components/row';
 import BoardSquare from './components/boardSquare';
 import PropTypes from 'prop-types';
 import { DragDropContext } from 'react-dnd';
-import { movePiece } from './components/game';
+import {canMovePiece, movePiece } from './components/game';
 import HTML5Backend from 'react-dnd-html5-backend';
 
 class BoardComponent extends Component {
@@ -16,6 +16,7 @@ class BoardComponent extends Component {
 
 
 clickedPositions(toX, toY){
+  if(canMovePiece(toX, toY))
   movePiece(toX, toY);
 }
 
