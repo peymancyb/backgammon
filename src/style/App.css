@@ -1,188 +1,53 @@
-.buttonPeice{
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: blue;
-  align-items:center;
-  justify-content: center;
-}
-
-.RowStyle{
-
-}
-
-
-
-
-.App {
-  text-align: center;
-  align-items: center;
-  justify-content: center;
-  align-self: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-
-
-
-/* CSS of board*/
-
-.board {
-  width: 610px;
-  height: 480px;
-  position: relative;
-  background-color: #335533;
+* {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
-  border: 10px solid black;
-  border-radius: 10px;
-  margin: 0px;
-  padding: 0px;
-  left:100px;
-  top:20px;
 }
-
-.left-bin {
-  position: relative;
-  left: 15px;
-  top: 0px;
+.boardContainer{
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 10%;
+  margin-top: 2%;
+  width: 600px;
+  height: 300px;
 }
-
-.right-bin {
-  position: relative;
-  left: 330px;
-  top: -389px;
+.upBoard{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 40px;
+  height: 150px;
+  margin-left: 10px;
+  background-color: red;
+  align-items: flex-start;
+  justify-content: center;
 }
-
-
-.left-bin .bottom-row {
-  clear: left;
-}
-
-.right-bin .top-row {
-  clear: left;
-}
-
-.right-bin .bottom-row {
-  clear: left;
-}
-
-.bottom-row {
-  position: relative;
-  top: 70px
-}
-/*
-.bottom-row, .top-row {
-  margin: 0 auto;
-  width: 550px;
-  clear: both;
-}
-*/
-.positionRelative{
-  align-items: center;
+.downBoard{
+  display: flex;
+  background-color: green;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-left: 10px;
+  height: 150px;
+  width: 40px;
+  align-items: flex-end;
   justify-content: center;
 }
 
-
-.columnShowDown{
+.container{
+}
+.containerReverse{
   display: flex;
-  flex: 1;
+  border: 1px solid #fff;
+  width: 3%;
+  height: 200px;
   flex-direction: column-reverse;
-  height: 100px;
-  justify-content: flex-end;
   align-items: center;
-  margin-top: 92px;
-  margin-right: 10px;
-
-}
-.columnShowUp{
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  bottom: 190px;
-}
-.arrow-down {
-	width: 0px;
-	height: 0px;
-	border-left: 20px solid transparent;
-	border-right: 20px solid transparent;
-	border-top: 195px solid green;
-  border-bottom: 0px solid;
-  display: inline;
-  float: left;
-  z-index: -1;
-}
-.arrow-up {
-	width: 0px;
-	height: 0px;
-  border-top: 0px solid;
-	border-left: 20px solid transparent;
-	border-right: 20px solid transparent ;
-	border-bottom: 195px solid green;
-  display: inline;
-  float: left;
-  z-index: -1;
 }
 
-.arrow-up.odd {
-  border-bottom: 195px solid #044;
-}
-
-.arrow-down.even {
-  border-top: 195px solid #044;
-}
-
-.middle-bar {
-  width: 20px;
-  height: 450px;
-  padding: 5px;
-  background-color: black;
-  position: absolute;
-  left: 280px;
-  top: 0px;
-}
-
-.pieceWhite{
+.peiceStyle{
   width: 20px;
   height: 20px;
-  background-color: white;
-  opacity: 1;
-  border-radius: 18px;
-}
-
-.pieceBlack {
-  width: 20px;
-  height: 20px;
-  background-color: black;
-  opacity: 1;
-  border-radius: 18px;
-}
-
-.marginTop{
-  margin-top:10px;
+  border-radius: 50%;
+  background-color: skyblue;
 }

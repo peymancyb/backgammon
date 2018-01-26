@@ -5,7 +5,7 @@
   "dependencies": {
     "react": "^16.2.0",
     "react-beautiful-dnd": "^4.0.1",
-    "react-bootstrap": "^0.32.0",
+    "react-bootstrap": "^0.32.1",
     "react-dnd": "^2.5.4",
     "react-dnd-html5-backend": "^2.5.4",
     "react-dom": "^16.2.0",

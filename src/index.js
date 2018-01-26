@@ -1,8 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import BoardComponent from './App';
 import registerServiceWorker from './registerServiceWorker';
+import { observe } from './components/game';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const rootEl = document.getElementById('root');
+
+observe(piecePosition =>
+  ReactDOM.render(
+    <BoardComponent piecePosition={piecePosition} />,
+    rootEl
+  )
+);
 registerServiceWorker();
