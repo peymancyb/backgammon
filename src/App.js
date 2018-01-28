@@ -27,10 +27,11 @@ class App extends Component {
 
 
   _makeActions(){
+    console.log("x: "+this.state.x);
+    console.log("y: "+this.state.y);
     let arr = this.props.backgammon;
     let firstPlace = this.state.firstPlace;
     let secondPlace = this.state.secondPlace;
-    let total = firstPlace + secondPlace;
     arr[firstPlace] = arr[firstPlace] - 1;
     arr[secondPlace] = arr[secondPlace] + 1;
     return this.setState({
