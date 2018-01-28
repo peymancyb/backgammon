@@ -1,6 +1,6 @@
 .App {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 .row{
   height: 200px;
@@ -8,8 +8,8 @@
   margin: 5px;
   background-color: pink;
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  align-items: center;
+  flex-direction: column;
 }
 
 .center{
@@ -46,7 +46,15 @@
   font-size: large;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.flex {
+  display: flex;
+}
+
+.flex-center {
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-end {
+  justify-content: flex-end;
 }

@@ -5,7 +5,7 @@ import '../style/App.css';
 class Row extends Component {
   render() {
     return (
-        <div className="row">
+        <div className={`row ${this.props.className}`}>
           {this.props.children}
         </div>
     );

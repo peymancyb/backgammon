@@ -67,36 +67,26 @@ class App extends Component {
     console.log(status);
   }
 
-  _renderPiece(items,status){
+  _renderPiece(items){
     let arr = [];
-    for(let i=0 ; i<items ;i++){
+    for(let i=0 ; i < items ;i++){
       arr.push(
-        <div key={i}>
+        <div key={`piece${i}`}>
           <Piece/>
         </div>
       );
     }
-    return(
-      <div>
-        {arr}
-      </div>
-    );
+    return arr;
   }
 
   render() {
-    // console.log(this.props);
-    // console.log(this.state);
     console.log(this.props.backgammon);
-    let backgammonArray = [];
-    for(let i=0 ; i<this.props.backgammon.length ;i++){
-      backgammonArray.push(
-        <div key={i} onClick={()=>this._clickOnRow(i)} >
-          <Row>
-            {this._renderPiece(this.props.backgammon[i],i)}
-          </Row>
-        </div>
-      )
-    }
+    let backgammonArray = this.props.backgammon.map((row, i) => {
+      return (<div key={`row${i}`} className="flex flex-center">
+                {row.map((piece, n) => (<Row className={i === 1? 'flex-end' : ''} key={`${i}${n}`}>{this._renderPiece(piece)}</Row>))}
+              </div>)
+    })
+
     return (
       <div>
         <div className="App">
