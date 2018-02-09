@@ -26,6 +26,7 @@ class App extends Component {
 
 
   _makeActions(){
+<<<<<<< HEAD
     // console.log("x: "+this.state.x);
     // console.log("y: "+this.state.y);
     console.log("first place: "+this.state.firstPlace);
@@ -35,6 +36,15 @@ class App extends Component {
     // let secondPlace = this.state.secondPlace;
     // arr[firstPlace] = arr[firstPlace] - 1;
     // arr[secondPlace] = arr[secondPlace] + 1;
+=======
+    console.log("x: "+this.state.x);
+    console.log("y: "+this.state.y);
+    let arr = this.props.backgammon;
+    let firstPlace = this.state.firstPlace;
+    let secondPlace = this.state.secondPlace;
+    arr[firstPlace] = arr[firstPlace] - 1;
+    arr[secondPlace] = arr[secondPlace] + 1;
+>>>>>>> master
     return this.setState({
       firstPlace:null,
       secondPlace:null,
