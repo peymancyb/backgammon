@@ -1658,6 +1658,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+//================================================
 var App = function (_Component) {
   _inherits(App, _Component);
 
@@ -1667,8 +1668,6 @@ var App = function (_Component) {
     var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
     _this.state = {
-      rowOne: 3,
-      rowTwo: 2,
       active: false,
       x: 0,
       y: 0,
@@ -1733,48 +1732,38 @@ var App = function (_Component) {
     }
   }, {
     key: '_renderPiece',
-    value: function _renderPiece(items, status) {
+    value: function _renderPiece(items) {
+      console.log(items);
       var arr = [];
       for (var i = 0; i < items; i++) {
         arr.push(_react2.default.createElement(
           'div',
-          { key: i },
+          { key: 'piece' + i },
           _react2.default.createElement(_piece2.default, null)
         ));
       }
-      return _react2.default.createElement(
-        'div',
-        null,
-        arr
-      );
+      return arr;
     }
   }, {
     key: 'render',
     value: function render() {
       var _this3 = this;
 
-      // console.log(this.props);
-      // console.log(this.state);
       console.log(this.props.backgammon);
-      var backgammonArray = [];
-
-      var _loop = function _loop(i) {
-        backgammonArray.push(_react2.default.createElement(
+      var backgammonArray = this.props.backgammon.map(function (row, i) {
+        return _react2.default.createElement(
           'div',
-          { key: i, onClick: function onClick() {
-              return _this3._clickOnRow(i);
-            } },
-          _react2.default.createElement(
-            _row2.default,
-            null,
-            _this3._renderPiece(_this3.props.backgammon[i], i)
-          )
-        ));
-      };
+          { key: 'row' + i, className: 'flex flex-center' },
+          row.map(function (piece, n) {
+            return _react2.default.createElement(
+              _row2.default,
+              { className: i === 1 ? 'flex-end' : 'flex-start', key: '' + i + n },
+              _this3._renderPiece(piece)
+            );
+          })
+        );
+      });
 
-      for (var i = 0; i < this.props.backgammon.length; i++) {
-        _loop(i);
-      }
       return _react2.default.createElement(
         'div',
         null,
@@ -3219,7 +3208,7 @@ exports = module.exports = __webpack_require__(26)(false);
 
 
 // module
-exports.push([module.i, ".App {\n  display: flex;\n  flex-direction: row;\n}\n.row{\n  height: 200px;\n  width: 40px;\n  margin: 5px;\n  background-color: pink;\n  display: flex;\n  justify-content: center;\n  align-items: flex-start;\n}\n\n.center{\n  display: flex;\n  flex:1;\n  align-items: center;\n  justify-content: center;\n}\n.dice{\n  display: flex;\n  flex-direction: column;\n  width: 100px;\n  align-items: center;\n  justify-content: center;\n  margin-top: 10px;\n}\n.App-logo {\n  animation: App-logo-spin infinite 20s linear;\n  height: 80px;\n}\n\n.App-header {\n  background-color: #222;\n  height: 150px;\n  padding: 20px;\n  color: white;\n}\n\n.App-title {\n  font-size: 1.5em;\n}\n\n.App-intro {\n  font-size: large;\n}\n\n@keyframes App-logo-spin {\n  from { transform: rotate(0deg); }\n  to { transform: rotate(360deg); }\n}\n", ""]);
+exports.push([module.i, ".App {\n  display: flex;\n  flex-direction: column;\n}\n.row{\n  height: 200px;\n  width: 40px;\n  margin: 5px;\n  background-color: pink;\n  display: flex;\n  align-items: center;\n  flex-direction: column;\n}\n\n.center{\n  display: flex;\n  flex:1;\n  align-items: center;\n  justify-content: center;\n}\n.dice{\n  display: flex;\n  flex-direction: column;\n  width: 100px;\n  align-items: center;\n  justify-content: center;\n  margin-top: 10px;\n}\n.App-logo {\n  animation: App-logo-spin infinite 20s linear;\n  height: 80px;\n}\n\n.App-header {\n  background-color: #222;\n  height: 150px;\n  padding: 20px;\n  color: white;\n}\n\n.App-title {\n  font-size: 1.5em;\n}\n\n.App-intro {\n  font-size: large;\n}\n\n.flex {\n  display: flex;\n}\n\n.flex-center {\n  align-items: center;\n  justify-content: center;\n}\n\n.flex-end {\n  justify-content: flex-end;\n}", ""]);
 
 // exports
 
@@ -3879,7 +3868,7 @@ var Row = function (_Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        { className: 'row' },
+        { className: 'row ' + this.props.className },
         this.props.children
       );
     }
