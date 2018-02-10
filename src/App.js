@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './style/App.css';
 import Row from './components/row';
 import {connect} from 'react-redux';
+import {changeBackgammonState} from './redux/actions/backgammonActions';
 //================================================
 class App extends Component {
   constructor(props){
@@ -9,6 +10,7 @@ class App extends Component {
     this.state={
       x:0,
       y:0,
+      oldRow:null,
     };
     this.dice = this.dice.bind(this);
     this._clickOnRow = this._clickOnRow.bind(this);
@@ -24,56 +26,53 @@ class App extends Component {
     });
   }
 
-
-  _makeActions(){
-<<<<<<< HEAD
-    // console.log("x: "+this.state.x);
-    // console.log("y: "+this.state.y);
+  _makeActions(rowIndex){
+    console.log("row index:"+rowIndex);
     console.log("first place: "+this.state.firstPlace);
     console.log("second place: "+this.state.secondPlace);
-    // let arr = this.props.backgammon;
-    // let firstPlace = this.state.firstPlace;
-    // let secondPlace = this.state.secondPlace;
-    // arr[firstPlace] = arr[firstPlace] - 1;
-    // arr[secondPlace] = arr[secondPlace] + 1;
-=======
-    console.log("x: "+this.state.x);
-    console.log("y: "+this.state.y);
-    let arr = this.props.backgammon;
-    let firstPlace = this.state.firstPlace;
-    let secondPlace = this.state.secondPlace;
-    arr[firstPlace] = arr[firstPlace] - 1;
-    arr[secondPlace] = arr[secondPlace] + 1;
->>>>>>> master
+
+    let arr = this.props.backgammon.map((currentArray)=>currentArray.slice());
+    if(arr[this.state.oldRow][this.state.firstPlace]!==0){
+      arr[this.state.oldRow][this.state.firstPlace] = arr[this.state.oldRow][this.state.firstPlace] - 1;
+      arr[rowIndex][this.state.secondPlace] = arr[rowIndex][this.state.secondPlace] + 1;
+      console.log(arr);
+      this.props.dispatch(changeBackgammonState(arr));
+
+    }
+
+
     return this.setState({
       firstPlace:null,
       secondPlace:null,
+      oldRow:null,
     });
 
   }
 
-  _clickOnRow(i){
+  _clickOnRow(i,index){
     let current = i;
     if(this.state.firstPlace == null){
       this.setState({
-        firstPlace: current
+        firstPlace: current,
+        oldRow: index,
       });
     }else if(this.state.secondPlace == null){
       this.setState({
         secondPlace: current
-      },()=>this._makeActions());
+      },()=>this._makeActions(index));
     }
   }
 
 
   render() {
+    console.log(this.props.backgammon);
     let backgammonArray = this.props.backgammon.map((row, i) => {
       return (
         <div key={`row${i}`} className="flex flex-center">
             {row.map((piece, n) => (
               <div
                 key={`index ${n}`}
-                onClick={()=>this._clickOnRow(n)}
+                onClick={()=>this._clickOnRow(n,i)}
                 >
                   <Row
                     className={i === 1? 'flex-end' : 'flex-start'}
@@ -108,6 +107,6 @@ class App extends Component {
 
 export default connect((store)=>{
   return{
-    backgammon: store.backgammon
+    backgammon: store.backgammon.backgammon
   };
 })(App);
