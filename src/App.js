@@ -37,10 +37,13 @@ class App extends Component {
     if(this.state.x!==null || this.state.y!==null){
       let arr = this.props.backgammon.map((currentArray)=>currentArray.slice());
       if(arr[this.state.oldRow][this.state.firstPlace]!==0){
-        arr[this.state.oldRow][this.state.firstPlace] = arr[this.state.oldRow][this.state.firstPlace] - 1;
-        arr[rowIndex][this.state.secondPlace] = arr[rowIndex][this.state.secondPlace] + 1;
-        console.log(arr);
-        this.props.dispatch(changeBackgammonState(arr));
+        //check available indexes
+        if(this.state.secondPlace === this.state.x || this.state.secondPlace === this.state.y){
+          arr[this.state.oldRow][this.state.firstPlace] = arr[this.state.oldRow][this.state.firstPlace] - 1;
+          arr[rowIndex][this.state.secondPlace] = arr[rowIndex][this.state.secondPlace] + 1;
+          console.log(arr);
+          this.props.dispatch(changeBackgammonState(arr));
+        }
       }
     }else{
       console.log("roll dice");
@@ -83,7 +86,8 @@ class App extends Component {
                 onClick={()=>this._clickOnRow(n,i)}
                 >
                   <Row
-                    className={i === 1? 'flex-end' : 'flex-start'}
+                    className={i === 1? 'topRow' : 'bottomRow'}
+                    Color={n%2===0?'backgroundColorPLONE':'backgroundColorPLTWO'}
                     key={`${i}${n}`}
                     pieceNumber={piece}
                     arrayIndex={n}
@@ -101,10 +105,11 @@ class App extends Component {
         </div>
         <div className="dice">
           <button
+            className="diceButton"
             onClick={()=>this.dice()}>
             <p>Dice</p>
           </button>
-          <div>
+          <div className="marginTop">
             {(this.state.x && this.state.y !== null)? this.state.x +" "+this.state.y : null}
           </div>
         </div>

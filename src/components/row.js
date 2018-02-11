@@ -33,7 +33,7 @@ class Row extends Component {
 
   render() {
     return (
-        <div className={`row ${this.props.className}`}>
+        <div className={`row ${this.props.className} ${this.props.Color}`}>
           {this._renderPiece(this.props.pieceNumber)}
         </div>
     );

@@ -1685,6 +1685,8 @@ var App = function (_Component) {
     var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
     _this.state = {
+      firstPlace: null,
+      secondPlace: null,
       x: null,
       y: null,
       oldRow: null
@@ -1712,15 +1714,18 @@ var App = function (_Component) {
       console.log("first place: " + this.state.firstPlace);
       console.log("second place: " + this.state.secondPlace);
 
-      if (this.state.x !== 0 || this.state.y !== 0) {
+      if (this.state.x !== null || this.state.y !== null) {
         var arr = this.props.backgammon.map(function (currentArray) {
           return currentArray.slice();
         });
         if (arr[this.state.oldRow][this.state.firstPlace] !== 0) {
-          arr[this.state.oldRow][this.state.firstPlace] = arr[this.state.oldRow][this.state.firstPlace] - 1;
-          arr[rowIndex][this.state.secondPlace] = arr[rowIndex][this.state.secondPlace] + 1;
-          console.log(arr);
-          this.props.dispatch((0, _backgammonActions.changeBackgammonState)(arr));
+          //check available indexes
+          if (this.state.secondPlace === this.state.x || this.state.secondPlace === this.state.y) {
+            arr[this.state.oldRow][this.state.firstPlace] = arr[this.state.oldRow][this.state.firstPlace] - 1;
+            arr[rowIndex][this.state.secondPlace] = arr[rowIndex][this.state.secondPlace] + 1;
+            console.log(arr);
+            this.props.dispatch((0, _backgammonActions.changeBackgammonState)(arr));
+          }
         }
       } else {
         console.log("roll dice");
@@ -1729,6 +1734,8 @@ var App = function (_Component) {
       return this.setState({
         firstPlace: null,
         secondPlace: null,
+        x: null,
+        y: null,
         oldRow: null
       });
     }
@@ -1771,7 +1778,8 @@ var App = function (_Component) {
                 }
               },
               _react2.default.createElement(_row2.default, {
-                className: i === 1 ? 'flex-end' : 'flex-start',
+                className: i === 1 ? 'topRow' : 'bottomRow',
+                Color: n % 2 === 0 ? 'backgroundColorPLONE' : 'backgroundColorPLTWO',
                 key: '' + i + n,
                 pieceNumber: piece,
                 arrayIndex: n
@@ -1795,6 +1803,7 @@ var App = function (_Component) {
           _react2.default.createElement(
             'button',
             {
+              className: 'diceButton',
               onClick: function onClick() {
                 return _this3.dice();
               } },
@@ -3225,7 +3234,7 @@ exports = module.exports = __webpack_require__(27)(false);
 
 
 // module
-exports.push([module.i, ".App {\n  display: flex;\n  flex-direction: column;\n}\n.row{\n  height: 200px;\n  width: 40px;\n  margin: 5px;\n  background-color: pink;\n  display: flex;\n  align-items: center;\n  flex-direction: column;\n}\n\n.center{\n  display: flex;\n  flex:1;\n  align-items: center;\n  justify-content: center;\n}\n.dice{\n  display: flex;\n  flex-direction: column;\n  width: 100px;\n  align-items: center;\n  justify-content: center;\n  margin-top: 10px;\n}\n.App-logo {\n  animation: App-logo-spin infinite 20s linear;\n  height: 80px;\n}\n\n.App-header {\n  background-color: #222;\n  height: 150px;\n  padding: 20px;\n  color: white;\n}\n\n.App-title {\n  font-size: 1.5em;\n}\n\n.App-intro {\n  font-size: large;\n}\n\n.flex {\n  display: flex;\n}\n\n.flex-center {\n  align-items: center;\n  justify-content: center;\n}\n\n.flex-end {\n  justify-content: flex-end;\n}", ""]);
+exports.push([module.i, ".App {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  margin-left: 25%;\n  width: 600px;\n  margin-top: 30px;\n  border: 1px solid #c6a14e;\n  background-color: #c6a14e;\n}\n\n/* ROW => START */\n.row{\n  height: 200px;\n  width: 40px;\n  margin: 5px;\n  background-color: #73300a;\n  display: flex;\n  align-items: center;\n  flex-direction: column;\n}\n.topRow{\n  border-radius: 150px 150px 0px 0px;\n  justify-content: flex-end;\n  align-items: center;\n}\n.bottomRow{\n  align-items: center;\n  justify-content: flex-start;\n  border-radius: 0px 0px 150px 150px;\n}\n.backgroundColorPLONE{\n  background-color: #73300a;\n}\n\n.backgroundColorPLTWO{\n  background-color: #96672b;\n}\n/* ROW => END */\n\n.center{\n  display: flex;\n  flex:1;\n  align-items: center;\n  justify-content: center;\n}\n.dice{\n  display: flex;\n  flex-direction: column;\n  width: 100px;\n  align-items: center;\n  justify-content: center;\n  margin-top: 10px;\n  margin-left: 45%;\n  padding-bottom: 10px;\n}\n\n.diceButton{\n  display: flex;\n  flex-direction: column;\n  border-radius: 10px;\n  width: 60px;\n  align-items: center;\n  justify-content: center;\n}\n\n\n.flex {\n  display: flex;\n}\n\n.flex-center {\n  align-items: center;\n  justify-content: center;\n}\n\n.flex-end {\n  justify-content: flex-end;\n}\n", ""]);
 
 // exports
 
@@ -3862,7 +3871,7 @@ var Row = function (_Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        { className: 'row ' + this.props.className },
+        { className: 'row ' + this.props.className + ' ' + this.props.Color },
         this._renderPiece(this.props.pieceNumber)
       );
     }

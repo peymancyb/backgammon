@@ -8,7 +8,7 @@ class Piece extends Component {
             width:25,
             height:25,
             borderRadius:"50%",
-            backgroundColor:"black"
+            backgroundColor:"black",
           }}
         />
     );
