@@ -30,10 +30,6 @@ class App extends Component {
 
 
   _makeActions(rowIndex){
-    console.log("row index:"+rowIndex);
-    console.log("first place: "+this.state.firstPlace);
-    console.log("second place: "+this.state.secondPlace);
-
     if(this.state.x!==null || this.state.y!==null){
       let arr = this.props.backgammon.map((currentArray)=>currentArray.slice());
       if(arr[this.state.oldRow][this.state.firstPlace]!==0){
@@ -41,22 +37,58 @@ class App extends Component {
         if(this.state.secondPlace === this.state.x || this.state.secondPlace === this.state.y){
           arr[this.state.oldRow][this.state.firstPlace] = arr[this.state.oldRow][this.state.firstPlace] - 1;
           arr[rowIndex][this.state.secondPlace] = arr[rowIndex][this.state.secondPlace] + 1;
-          console.log(arr);
           this.props.dispatch(changeBackgammonState(arr));
+          if(this.state.secondPlace === this.state.x){
+            this.setState({
+              firstPlace:null,
+              secondPlace:null,
+              x:null,
+              oldRow:null,
+            });
+          }else if (this.state.secondPlace === this.state.y) {
+            this.setState({
+              firstPlace:null,
+              secondPlace:null,
+              y:null,
+              oldRow:null,
+            });
+          }
+        }
+        //check available steps
+        if(this.state.x === null){
+          arr[this.state.oldRow][this.state.firstPlace] = arr[this.state.oldRow][this.state.firstPlace] - 1;
+          arr[rowIndex][this.state.secondPlace] = arr[rowIndex][this.state.secondPlace] + 1;
+          this.props.dispatch(changeBackgammonState(arr));
+          return this.setState({
+            firstPlace:null,
+            secondPlace:null,
+            x:null,
+            y:null,
+            oldRow:null,
+          });
+        }else if(this.state.y === null){
+          arr[this.state.oldRow][this.state.firstPlace] = arr[this.state.oldRow][this.state.firstPlace] - 1;
+          arr[rowIndex][this.state.secondPlace] = arr[rowIndex][this.state.secondPlace] + 1;
+          this.props.dispatch(changeBackgammonState(arr));
+          return this.setState({
+            firstPlace:null,
+            secondPlace:null,
+            x:null,
+            y:null,
+            oldRow:null,
+          });
         }
       }
     }else{
       console.log("roll dice");
     }
-
-
-    return this.setState({
-      firstPlace:null,
-      secondPlace:null,
-      x:null,
-      y:null,
-      oldRow:null,
-    });
+    // return this.setState({
+    //   firstPlace:null,
+    //   secondPlace:null,
+    //   x:null,
+    //   y:null,
+    //   oldRow:null,
+    // });
 
   }
 
