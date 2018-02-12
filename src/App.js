@@ -37,17 +37,21 @@ class App extends Component {
     if(this.state.x!==null || this.state.y!==null){
       let arr = this.props.backgammon.map((currentArray)=>currentArray.slice());
       //checking not to clicking on empty column
-      if(arr[this.state.rowState][this.state.firstPlace]!==0 && rowIndex===0){
+      if(arr[this.state.rowState][this.state.firstPlace]!==0 && rowIndex===0 && this.state.rowState===0){
         if(this.state.secondPlace === this.state.firstPlace+this.state.x || this.state.secondPlace === this.state.firstPlace+this.state.y){
           arr[this.state.rowState][this.state.firstPlace] = arr[this.state.rowState][this.state.firstPlace] - 1;
           arr[rowIndex][this.state.secondPlace] = arr[rowIndex][this.state.secondPlace] + 1;
           this.props.dispatch(changeBackgammonState(arr));
+        }else{
+          console.log("wrong place");
         }
 
-      }else if(arr[this.state.rowState][this.state.firstPlace]!==0 && rowIndex===0){
-        arr[this.state.rowState][this.state.firstPlace] = arr[this.state.rowState][this.state.firstPlace] - 1;
-        arr[rowIndex][this.state.secondPlace] = arr[rowIndex][this.state.secondPlace] + 1;
-        this.props.dispatch(changeBackgammonState(arr));
+      }else if(arr[this.state.rowState][this.state.firstPlace]!==0 && rowIndex===1 && this.state.rowState===1){
+        if(this.state.secondPlace === this.state.firstPlace-this.state.x || this.state.secondPlace === this.state.firstPlace-this.state.y){
+          arr[this.state.rowState][this.state.firstPlace] = arr[this.state.rowState][this.state.firstPlace] - 1;
+          arr[rowIndex][this.state.secondPlace] = arr[rowIndex][this.state.secondPlace] + 1;
+          this.props.dispatch(changeBackgammonState(arr));
+        }
       }
 
     }else{
@@ -55,23 +59,44 @@ class App extends Component {
       this.setState(this.defaultState);
     }
 
+    if(rowIndex===0 || this.state.rowState===0){
+          if(this.state.secondPlace === this.state.x+this.state.tempPlace){
+             this.setState({
+             firstPlace:null,
+             secondPlace:null,
+             x:null,
+             rowState:null,
+           });
+         }
+         if(this.state.secondPlace === this.state.y+this.state.tempPlace) {
+            this.setState({
+            firstPlace:null,
+            secondPlace:null,
+            y:null,
+            rowState:null,
+          });
+         }
+    }else if(rowIndex===1 || this.state.rowState===1){
+        if(this.state.secondPlace === this.state.tempPlace-this.state.x){
+           this.setState({
+           firstPlace:null,
+           secondPlace:null,
+           x:null,
+           rowState:null,
+         });
+       }
+       if(this.state.secondPlace === this.state.tempPlace-this.state.y) {
+          this.setState({
+          firstPlace:null,
+          secondPlace:null,
+          y:null,
+          rowState:null,
+        });
+       }
+    }
 
-    if(this.state.secondPlace === this.state.x+this.state.tempPlace){
-       this.setState({
-       firstPlace:null,
-       secondPlace:null,
-       x:null,
-       rowState:null,
-     });
-   }
-   if(this.state.secondPlace === this.state.y+this.state.tempPlace) {
-      this.setState({
-      firstPlace:null,
-      secondPlace:null,
-      y:null,
-      rowState:null,
-    });
-   }
+
+
    return this.setState({
      firstPlace:null,
      secondPlace:null,
