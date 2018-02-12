@@ -1,0 +1,8 @@
+namespace ConsoleApplication1{
+  class Program{
+  static void Main(string[]args){
+  string[] arr2 = new string[5];
+  Array myArr = arr2.CreateInstance(string,5);
+  }
+  }
+}

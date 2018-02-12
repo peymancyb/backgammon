@@ -1676,6 +1676,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 //================================================
+
+//first o second e ghabli ro bayad save konam ta ba x va y jam konam
 var App = function (_Component) {
   _inherits(App, _Component);
 
@@ -1684,13 +1686,15 @@ var App = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
-    _this.state = {
+    _this.defaultState = {
+      tempPlace: 0,
       firstPlace: null,
       secondPlace: null,
       x: null,
       y: null,
-      oldRow: null
+      rowState: null
     };
+    _this.state = _this.defaultState;
     _this.dice = _this.dice.bind(_this);
     _this._clickOnRow = _this._clickOnRow.bind(_this);
     _this._makeActions = _this._makeActions.bind(_this);
@@ -1707,37 +1711,42 @@ var App = function (_Component) {
         y: y
       });
     }
+
+    //check available indexes
+
   }, {
     key: '_makeActions',
     value: function _makeActions(rowIndex) {
-      console.log("row index:" + rowIndex);
-      console.log("first place: " + this.state.firstPlace);
-      console.log("second place: " + this.state.secondPlace);
-
       if (this.state.x !== null || this.state.y !== null) {
         var arr = this.props.backgammon.map(function (currentArray) {
           return currentArray.slice();
         });
-        if (arr[this.state.oldRow][this.state.firstPlace] !== 0) {
-          //check available indexes
-          if (this.state.secondPlace === this.state.x || this.state.secondPlace === this.state.y) {
-            arr[this.state.oldRow][this.state.firstPlace] = arr[this.state.oldRow][this.state.firstPlace] - 1;
-            arr[rowIndex][this.state.secondPlace] = arr[rowIndex][this.state.secondPlace] + 1;
-            console.log(arr);
-            this.props.dispatch((0, _backgammonActions.changeBackgammonState)(arr));
-          }
+        //checking not to clicking on empty column
+        if (arr[this.state.rowState][this.state.firstPlace] !== 0) {
+          arr[this.state.rowState][this.state.firstPlace] = arr[this.state.rowState][this.state.firstPlace] - 1;
+          arr[rowIndex][this.state.secondPlace] = arr[rowIndex][this.state.secondPlace] + 1;
+          this.props.dispatch((0, _backgammonActions.changeBackgammonState)(arr));
         }
       } else {
         console.log("roll dice");
+        this.setState(this.defaultState);
       }
-
-      return this.setState({
-        firstPlace: null,
-        secondPlace: null,
-        x: null,
-        y: null,
-        oldRow: null
-      });
+      if (this.state.secondPlace === this.state.x + this.state.tempPlace) {
+        this.setState({
+          firstPlace: null,
+          secondPlace: null,
+          x: null,
+          rowState: null
+        });
+      }
+      if (this.state.secondPlace === this.state.y + this.state.tempPlace) {
+        this.setState({
+          firstPlace: null,
+          secondPlace: null,
+          y: null,
+          rowState: null
+        });
+      }
     }
   }, {
     key: '_clickOnRow',
@@ -1748,7 +1757,9 @@ var App = function (_Component) {
       if (this.state.firstPlace == null) {
         this.setState({
           firstPlace: current,
-          oldRow: index
+          rowState: index
+        }, function () {
+          return _this2.setState({ tempPlace: _this2.state.firstPlace });
         });
       } else if (this.state.secondPlace == null) {
         this.setState({
@@ -1763,7 +1774,11 @@ var App = function (_Component) {
     value: function render() {
       var _this3 = this;
 
-      console.log('state: ' + this.state.x + '  ' + this.state.y + '  ' + this.state.oldRow);
+      console.log(this.state.firstPlace, this.state.secondPlace, this.state.x, this.state.y, this.state.tempPlace);
+
+      // if(this.state.x === null && this.state.y)
+      // console.log(`first place: ${this.state.firstPlace} second place: ${this.state.secondPlace} x: ${this.state.x} y: ${this.state.y}`);
+      // console.log(this.props.history);
       var backgammonArray = this.props.backgammon.map(function (row, i) {
         return _react2.default.createElement(
           'div',
@@ -1815,8 +1830,10 @@ var App = function (_Component) {
           ),
           _react2.default.createElement(
             'div',
-            null,
-            this.state.x && this.state.y !== null ? this.state.x + " " + this.state.y : null
+            { className: 'marginTop' },
+            this.state.x !== null ? this.state.x : null,
+            ' ',
+            this.state.y !== null ? this.state.y : null
           )
         )
       );
@@ -1828,9 +1845,37 @@ var App = function (_Component) {
 
 exports.default = (0, _reactRedux.connect)(function (store) {
   return {
+    history: store.backgammon,
     backgammon: store.backgammon.backgammon
   };
 })(App);
+
+//
+//
+//
+// if(this.state.secondPlace === this.state.x){
+//   arr[this.state.rowState][this.state.firstPlace] = arr[this.state.rowState][this.state.firstPlace] - 1;
+//   arr[rowIndex][this.state.secondPlace] = arr[rowIndex][this.state.secondPlace] + 1;
+//    this.setState({
+//     firstPlace:null,
+//     secondPlace:null,
+//     x:null,
+//     rowState:null,
+//   });
+//   this.props.dispatch(changeBackgammonState(arr));
+// }
+//
+// if(this.state.secondPlace === this.state.y){
+//   arr[this.state.rowState][this.state.firstPlace] = arr[this.state.rowState][this.state.firstPlace] - 1;
+//   arr[rowIndex][this.state.secondPlace] = arr[rowIndex][this.state.secondPlace] + 1;
+//    this.setState({
+//     firstPlace:null,
+//     secondPlace:null,
+//     y:null,
+//     rowState:null,
+//   });
+//   this.props.dispatch(changeBackgammonState(arr));
+// }
 
 /***/ }),
 /* 24 */
@@ -3234,7 +3279,7 @@ exports = module.exports = __webpack_require__(27)(false);
 
 
 // module
-exports.push([module.i, ".App {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  margin-left: 25%;\n  width: 600px;\n  margin-top: 30px;\n  border: 1px solid #c6a14e;\n  background-color: #c6a14e;\n}\n\n/* ROW => START */\n.row{\n  height: 200px;\n  width: 40px;\n  margin: 5px;\n  background-color: #73300a;\n  display: flex;\n  align-items: center;\n  flex-direction: column;\n}\n.topRow{\n  border-radius: 150px 150px 0px 0px;\n  justify-content: flex-end;\n  align-items: center;\n}\n.bottomRow{\n  align-items: center;\n  justify-content: flex-start;\n  border-radius: 0px 0px 150px 150px;\n}\n.backgroundColorPLONE{\n  background-color: #73300a;\n}\n\n.backgroundColorPLTWO{\n  background-color: #96672b;\n}\n/* ROW => END */\n\n.center{\n  display: flex;\n  flex:1;\n  align-items: center;\n  justify-content: center;\n}\n.dice{\n  display: flex;\n  flex-direction: column;\n  width: 100px;\n  align-items: center;\n  justify-content: center;\n  margin-top: 10px;\n  margin-left: 45%;\n  padding-bottom: 10px;\n}\n\n.diceButton{\n  display: flex;\n  flex-direction: column;\n  border-radius: 10px;\n  width: 60px;\n  align-items: center;\n  justify-content: center;\n}\n\n\n.flex {\n  display: flex;\n}\n\n.flex-center {\n  align-items: center;\n  justify-content: center;\n}\n\n.flex-end {\n  justify-content: flex-end;\n}\n", ""]);
+exports.push([module.i, ".App {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  margin-left: 25%;\n  width: 600px;\n  margin-top: 30px;\n  border: 10px solid black;\n  background-color: #c6a14e;\n}\n\n/* ROW => START */\n.row{\n  height: 200px;\n  width: 40px;\n  margin: 5px;\n  background-color: #73300a;\n  display: flex;\n  align-items: center;\n  flex-direction: column;\n}\n.topRow{\n  border-radius: 150px 150px 0px 0px;\n  justify-content: flex-end;\n  align-items: center;\n}\n.bottomRow{\n  align-items: center;\n  justify-content: flex-start;\n  border-radius: 0px 0px 150px 150px;\n}\n.backgroundColorPLONE{\n  background-color: #73300a;\n}\n\n.backgroundColorPLTWO{\n  background-color: #96672b;\n}\n/* ROW => END */\n\n.center{\n  display: flex;\n  flex:1;\n  align-items: center;\n  justify-content: center;\n}\n.dice{\n  display: flex;\n  flex-direction: column;\n  width: 100px;\n  align-items: center;\n  justify-content: center;\n  margin-top: 10px;\n  margin-left: 45%;\n}\n\n.diceButton{\n  display: flex;\n  flex-direction: column;\n  border-radius: 10px;\n  width: 60px;\n  align-items: center;\n  background-color: #0c4da2;\n  color: white;\n  justify-content: center;\n}\n.marginTop{\n  color: #0c4da2;\n  margin-top: 15px;\n  font-size: 24px;\n}\n\n\n.flex {\n  display: flex;\n}\n\n.flex-center {\n  align-items: center;\n  justify-content: center;\n}\n\n.flex-end {\n  justify-content: flex-end;\n}\n", ""]);
 
 // exports
 
