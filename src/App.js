@@ -37,15 +37,25 @@ class App extends Component {
     if(this.state.x!==null || this.state.y!==null){
       let arr = this.props.backgammon.map((currentArray)=>currentArray.slice());
       //checking not to clicking on empty column
-      if(arr[this.state.rowState][this.state.firstPlace]!==0){
+      if(arr[this.state.rowState][this.state.firstPlace]!==0 && rowIndex===0){
+        if(this.state.secondPlace === this.state.firstPlace+this.state.x || this.state.secondPlace === this.state.firstPlace+this.state.y){
+          arr[this.state.rowState][this.state.firstPlace] = arr[this.state.rowState][this.state.firstPlace] - 1;
+          arr[rowIndex][this.state.secondPlace] = arr[rowIndex][this.state.secondPlace] + 1;
+          this.props.dispatch(changeBackgammonState(arr));
+        }
+
+      }else if(arr[this.state.rowState][this.state.firstPlace]!==0 && rowIndex===0){
         arr[this.state.rowState][this.state.firstPlace] = arr[this.state.rowState][this.state.firstPlace] - 1;
         arr[rowIndex][this.state.secondPlace] = arr[rowIndex][this.state.secondPlace] + 1;
         this.props.dispatch(changeBackgammonState(arr));
       }
+
     }else{
       console.log("roll dice");
       this.setState(this.defaultState);
     }
+
+
     if(this.state.secondPlace === this.state.x+this.state.tempPlace){
        this.setState({
        firstPlace:null,
@@ -62,6 +72,11 @@ class App extends Component {
       rowState:null,
     });
    }
+   return this.setState({
+     firstPlace:null,
+     secondPlace:null,
+     rowState:null,
+   });
   }
 
   _clickOnRow(i,index){
@@ -79,11 +94,10 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state.firstPlace,this.state.secondPlace, this.state.x, this.state.y,this.state.tempPlace);
+    // console.log(this.state.firstPlace,this.state.secondPlace, this.state.x, this.state.y,this.state.tempPlace);
+    // console.log(this.state.x+this.state.tempPlace);
+    // console.log(this.state.y+this.state.tempPlace);
 
-    // if(this.state.x === null && this.state.y)
-    // console.log(`first place: ${this.state.firstPlace} second place: ${this.state.secondPlace} x: ${this.state.x} y: ${this.state.y}`);
-    // console.log(this.props.history);
     let backgammonArray = this.props.backgammon.map((row, i) => {
       return (
         <div key={`row${i}`} className="flex flex-center">
