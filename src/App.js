@@ -32,33 +32,92 @@ class App extends Component {
     });
   }
 
+
+
+
+
+
+  // if(arr[this.state.rowState][this.state.firstPlace]!==0 && rowIndex===0 && this.state.rowState===0){
+  //   if(this.state.secondPlace+this.state.x>11 || this.state.secondPlace+this.state.y>11){
+  //       arr[this.state.rowState][this.state.firstPlace] = arr[this.state.rowState][this.state.firstPlace] - 1;
+  //       arr[rowIndex+1][this.state.secondPlace] = arr[rowIndex+1][this.state.secondPlace] + 1;
+  //       this.props.dispatch(changeBackgammonState(arr));
+  //   }
+  //
+  //   if(this.state.secondPlace === this.state.firstPlace+this.state.x || this.state.secondPlace === this.state.firstPlace+this.state.y){
+  //     arr[this.state.rowState][this.state.firstPlace] = arr[this.state.rowState][this.state.firstPlace] - 1;
+  //     arr[rowIndex][this.state.secondPlace] = arr[rowIndex][this.state.secondPlace] + 1;
+  //     this.props.dispatch(changeBackgammonState(arr));
+  //
+  //   }else{
+  //     console.log("wrong place");
+  //   }
+  //
+  // }else if(arr[this.state.rowState][this.state.firstPlace]!==0 && rowIndex===1 && this.state.rowState===1){
+  //   if(this.state.secondPlace === this.state.firstPlace-this.state.x || this.state.secondPlace === this.state.firstPlace-this.state.y){
+  //     arr[this.state.rowState][this.state.firstPlace] = arr[this.state.rowState][this.state.firstPlace] - 1;
+  //     arr[rowIndex][this.state.secondPlace] = arr[rowIndex][this.state.secondPlace] + 1;
+  //     this.props.dispatch(changeBackgammonState(arr));
+  //   }
+  // }
+
+
+
+
+
   //check available indexes
   _makeActions(rowIndex){
+    //rowState is the first place where user clicked
+    //rowIndex is the row index of pieces
     if(this.state.x!==null || this.state.y!==null){
       let arr = this.props.backgammon.map((currentArray)=>currentArray.slice());
-      //checking not to clicking on empty column
-      if(arr[this.state.rowState][this.state.firstPlace]!==0 && rowIndex===0 && this.state.rowState===0){
-        if(this.state.secondPlace === this.state.firstPlace+this.state.x || this.state.secondPlace === this.state.firstPlace+this.state.y){
-          arr[this.state.rowState][this.state.firstPlace] = arr[this.state.rowState][this.state.firstPlace] - 1;
-          arr[rowIndex][this.state.secondPlace] = arr[rowIndex][this.state.secondPlace] + 1;
-          this.props.dispatch(changeBackgammonState(arr));
-        }else{
-          console.log("wrong place");
-        }
+      if(arr[this.state.rowState][this.state.firstPlace]!==0 && this.state.rowState === 0 ){
+          if(this.state.firstPlace+this.state.x>12 || this.state.firstPlace+this.state.y>12){
+            if(this.state.secondPlace === this.state.firstPlace-this.state.x+1 ){
+              arr[this.state.rowState][this.state.firstPlace] = arr[this.state.rowState][this.state.firstPlace] - 1;
+              arr[rowIndex][this.state.secondPlace] = arr[rowIndex][this.state.secondPlace] + 1;
+              this.props.dispatch(changeBackgammonState(arr));
+              this.setState({
+              firstPlace:null,
+              secondPlace:null,
+              x:null,
+              rowState:null,
+            });
+            }
+            if(this.state.secondPlace === this.state.firstPlace-this.state.y+1){
+              arr[this.state.rowState][this.state.firstPlace] = arr[this.state.rowState][this.state.firstPlace] - 1;
+              arr[rowIndex][this.state.secondPlace] = arr[rowIndex][this.state.secondPlace] + 1;
+              this.props.dispatch(changeBackgammonState(arr));
+              this.setState({
+              firstPlace:null,
+              secondPlace:null,
+              y:null,
+              rowState:null,
+            });
+            }
+          }else if(this.state.secondPlace === this.state.firstPlace+this.state.x || this.state.secondPlace === this.state.firstPlace+this.state.y){
 
-      }else if(arr[this.state.rowState][this.state.firstPlace]!==0 && rowIndex===1 && this.state.rowState===1){
+            arr[this.state.rowState][this.state.firstPlace] = arr[this.state.rowState][this.state.firstPlace] - 1;
+            arr[rowIndex][this.state.secondPlace] = arr[rowIndex][this.state.secondPlace] + 1;
+            this.props.dispatch(changeBackgammonState(arr));
+          }else{
+            console.log("wrong place");
+          }
+
+      }else if(arr[this.state.rowState][this.state.firstPlace]!==0 && this.state.rowState === 1){
         if(this.state.secondPlace === this.state.firstPlace-this.state.x || this.state.secondPlace === this.state.firstPlace-this.state.y){
           arr[this.state.rowState][this.state.firstPlace] = arr[this.state.rowState][this.state.firstPlace] - 1;
           arr[rowIndex][this.state.secondPlace] = arr[rowIndex][this.state.secondPlace] + 1;
           this.props.dispatch(changeBackgammonState(arr));
         }
       }
-
     }else{
       console.log("roll dice");
       this.setState(this.defaultState);
     }
 
+    //==========================================================================
+    //setting x and y to null regarding to their indexes
     if(rowIndex===0 || this.state.rowState===0){
           if(this.state.secondPlace === this.state.x+this.state.tempPlace){
              this.setState({
@@ -94,15 +153,17 @@ class App extends Component {
         });
        }
     }
-
-
-
+    //==========================================================================
    return this.setState({
      firstPlace:null,
      secondPlace:null,
      rowState:null,
    });
   }
+
+
+
+
 
   _clickOnRow(i,index){
     let current = i;
@@ -119,10 +180,7 @@ class App extends Component {
   }
 
   render() {
-    // console.log(this.state.firstPlace,this.state.secondPlace, this.state.x, this.state.y,this.state.tempPlace);
-    // console.log(this.state.x+this.state.tempPlace);
-    // console.log(this.state.y+this.state.tempPlace);
-
+    console.log(this.props.backgammon);
     let backgammonArray = this.props.backgammon.map((row, i) => {
       return (
         <div key={`row${i}`} className="flex flex-center">
