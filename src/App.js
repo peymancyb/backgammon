@@ -197,30 +197,3 @@ export default connect((store)=>{
     backgammon: store.backgammon.backgammon,
   };
 })(App);
-
-//
-//
-//
-// if(this.state.secondPlace === this.state.x){
-//   arr[this.state.rowState][this.state.firstPlace] = arr[this.state.rowState][this.state.firstPlace] - 1;
-//   arr[rowIndex][this.state.secondPlace] = arr[rowIndex][this.state.secondPlace] + 1;
-//    this.setState({
-//     firstPlace:null,
-//     secondPlace:null,
-//     x:null,
-//     rowState:null,
-//   });
-//   this.props.dispatch(changeBackgammonState(arr));
-// }
-//
-// if(this.state.secondPlace === this.state.y){
-//   arr[this.state.rowState][this.state.firstPlace] = arr[this.state.rowState][this.state.firstPlace] - 1;
-//   arr[rowIndex][this.state.secondPlace] = arr[rowIndex][this.state.secondPlace] + 1;
-//    this.setState({
-//     firstPlace:null,
-//     secondPlace:null,
-//     y:null,
-//     rowState:null,
-//   });
-//   this.props.dispatch(changeBackgammonState(arr));
-// }
