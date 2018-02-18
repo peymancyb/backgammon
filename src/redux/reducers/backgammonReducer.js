@@ -7,7 +7,7 @@ const backgammonReducer = (state=backgammonInitial,action)=>{
     case "CHANGE_BACKGAMMON":
       return {...state,backgammon: action.payload}
     default:
-    return state
+    return state;
   }
 };
 

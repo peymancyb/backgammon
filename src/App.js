@@ -3,164 +3,134 @@ import './style/App.css';
 import Row from './components/row';
 import {connect} from 'react-redux';
 import {changeBackgammonState} from './redux/actions/backgammonActions';
-//================================================
+import Dice from './components/dice';
+import {resetX,resetY,resetDice} from './redux/actions/diceActions';
+import BoardRow from './components/boardRow';
+import {changeComponent} from './redux/actions/changeComponentActions';
 
-//first o second e ghabli ro bayad save konam ta ba x va y jam konam
+
 class App extends Component {
   constructor(props){
     super(props);
     this.defaultState={
-      tempPlace:0,
-      firstPlace:null,
-      secondPlace:null,
-      x:null,
-      y:null,
-      rowState:null,
+      x:0,
+      y:0,
+      initialDimention:{
+        x:0,
+        y:0
+      },
+      dimentions:{
+        x:0,
+        xSecond:0,
+        y:0,
+      },
     };
-    this.state=this.defaultState;
-    this.dice = this.dice.bind(this);
+    this.state = this.defaultState;
     this._clickOnRow = this._clickOnRow.bind(this);
-    this._makeActions = this._makeActions.bind(this);
+    this.validateSteps = this.validateSteps.bind(this);
   }
 
-  dice(){
-    let x = Math.floor(Math.random()*6+1);
-    let y = Math.floor(Math.random()*6+1);
+  componentDidMount(){
     this.setState({
-      x:x,
-      y:y,
-    });
+      x: this.props.diceX,
+      y: this.props.diceY,
+    })
   }
 
 
-
-
-  //check available indexes
-  _makeActions(rowIndex){
-    //rowState is the first place where user clicked
-    //rowIndex is the row index of pieces
-    if(this.state.x!==null || this.state.y!==null){
-      let arr = this.props.backgammon.map((currentArray)=>currentArray.slice());
-      if(arr[this.state.rowState][this.state.firstPlace]!==0 && this.state.rowState === 0 ){
-          if(this.state.firstPlace+this.state.x>11 || this.state.firstPlace+this.state.y>11){
-            if(this.state.secondPlace === this.state.firstPlace+((11 - this.state.firstPlace)*2+1) - this.state.x){
-              arr[this.state.rowState][this.state.firstPlace] = arr[this.state.rowState][this.state.firstPlace] - 1;
-              arr[rowIndex][this.state.secondPlace] = arr[rowIndex][this.state.secondPlace] + 1;
-              this.props.dispatch(changeBackgammonState(arr));
-              this.setState({
-              firstPlace:null,
-              secondPlace:null,
-              x:null,
-              rowState:null,
-            });
-            }
-            if(this.state.secondPlace === this.state.firstPlace+((11 - this.state.firstPlace)*2+1) - this.state.y){
-              arr[this.state.rowState][this.state.firstPlace] = arr[this.state.rowState][this.state.firstPlace] - 1;
-              arr[rowIndex][this.state.secondPlace] = arr[rowIndex][this.state.secondPlace] + 1;
-              this.props.dispatch(changeBackgammonState(arr));
-              this.setState({
-              firstPlace:null,
-              secondPlace:null,
-              y:null,
-              rowState:null,
-            });
-            }
-          }else if(this.state.secondPlace === this.state.firstPlace+this.state.x || this.state.secondPlace === this.state.firstPlace+this.state.y){
-
-            arr[this.state.rowState][this.state.firstPlace] = arr[this.state.rowState][this.state.firstPlace] - 1;
-            arr[rowIndex][this.state.secondPlace] = arr[rowIndex][this.state.secondPlace] + 1;
-            this.props.dispatch(changeBackgammonState(arr));
-          }else{
-            console.log("wrong place");
-          }
-
-      }else if(arr[this.state.rowState][this.state.firstPlace]!==0 && this.state.rowState === 1){
-        if(this.state.secondPlace === this.state.firstPlace-this.state.x || this.state.secondPlace === this.state.firstPlace-this.state.y){
-          arr[this.state.rowState][this.state.firstPlace] = arr[this.state.rowState][this.state.firstPlace] - 1;
-          arr[rowIndex][this.state.secondPlace] = arr[rowIndex][this.state.secondPlace] + 1;
-          this.props.dispatch(changeBackgammonState(arr));
-        }
+  _clickOnRow(indexOfRow,indexOfPiece){
+    let arr = this.props.backgammon.map((forEachArray)=>forEachArray.slice());
+    if(this.state.x !== null || this.state.y !== null){
+      if(arr[indexOfRow][indexOfPiece] !== 0 ){
+        this.validateSteps(indexOfRow,indexOfPiece);
+      }else{
+        console.log("choose a piece!");
       }
     }else{
-      console.log("roll dice");
-      this.setState(this.defaultState);
+      alert('🙂 Roll Dice 🙂')
     }
+  }
 
-    //==========================================================================
-    //setting x and y to null regarding to their indexes
-    if(rowIndex===0 || this.state.rowState===0){
-          if(this.state.secondPlace === this.state.x+this.state.tempPlace){
-             this.setState({
-             firstPlace:null,
-             secondPlace:null,
-             x:null,
-             rowState:null,
-           });
-         }
-         if(this.state.secondPlace === this.state.y+this.state.tempPlace) {
-            this.setState({
-            firstPlace:null,
-            secondPlace:null,
-            y:null,
-            rowState:null,
-          });
-         }
-    }else if(rowIndex===1 || this.state.rowState===1){
-        if(this.state.secondPlace === this.state.tempPlace-this.state.x){
-           this.setState({
-           firstPlace:null,
-           secondPlace:null,
-           x:null,
-           rowState:null,
-         });
-       }
-       if(this.state.secondPlace === this.state.tempPlace-this.state.y) {
+
+  validateSteps(indexOfRow,indexOfPiece){
+    let arr = this.props.backgammon.map((forEachArray)=>forEachArray.slice());
+    //keep initial place
+    let initialY = indexOfRow;
+    let initialX = indexOfPiece;
+    const initialDimention = {
+      x:initialX,
+      y:initialY
+    };
+    //==================
+      if(indexOfRow === 0){
+        if(indexOfPiece+this.state.x>11 || indexOfPiece+this.state.y>11){
+          let x = ((this.state.x!==null)?indexOfPiece-this.state.x+1:null);
+          let xSecond = ((this.state.y!==null)?indexOfPiece-this.state.y+1:null);
+          let y = indexOfRow+1;
+          let dimentions = {
+            x:x,
+            xSecond:xSecond,
+            y:y,
+          };
           this.setState({
-          firstPlace:null,
-          secondPlace:null,
-          y:null,
-          rowState:null,
+            dimentions:dimentions,
+            initialDimention:initialDimention,
+          });
+        }else{
+          let x = ((this.state.x!==null)?indexOfPiece+this.state.x:null);
+          let xSecond = ((this.state.y!==null)?indexOfPiece+this.state.y:null);
+          let y = indexOfRow;
+          let dimentions = {
+            x:x,
+            xSecond:xSecond,
+            y:y,
+          };
+          this.setState({
+            dimentions:dimentions,
+            initialDimention:initialDimention,
+          });
+        }
+      }
+      if(indexOfRow === 1){
+        let x = ((this.state.x!==null)?indexOfPiece-this.state.x:null);
+        let xSecond = ((this.state.y!==null)?indexOfPiece-this.state.y:null);
+        let y = indexOfRow;
+        let dimentions = {
+          x:x,
+          xSecond:xSecond,
+          y:y,
+        };
+        this.setState({
+          dimentions:dimentions,
+          initialDimention:initialDimention,
         });
-       }
+      }
+      this.props.dispatch(changeComponent(false));
+
     }
-    //==========================================================================
-   return this.setState({
-     firstPlace:null,
-     secondPlace:null,
-     rowState:null,
-   });
+
+
+  componentWillReceiveProps(nextProps){
+    this.setState({
+      x: nextProps.diceX,
+      y: nextProps.diceY,
+    })
   }
 
-
-
-
-
-  _clickOnRow(i,index){
-    let current = i;
-    if(this.state.firstPlace == null){
-      this.setState({
-        firstPlace: current,
-        rowState: index,
-      },()=>this.setState({tempPlace:this.state.firstPlace}));
-    }else if(this.state.secondPlace == null){
-      this.setState({
-        secondPlace: current
-      },()=>this._makeActions(index));
-    }
-  }
 
   render() {
+    //========================================================
     let backgammonArray = this.props.backgammon.map((row, i) => {
       return (
         <div key={`row${i}`} className="flex flex-center">
             {row.map((piece, n) => (
               <div
                 key={`index ${n}`}
-                onClick={()=>this._clickOnRow(n,i)}
+                onClick={()=>this._clickOnRow(i,n)}
                 >
                   <Row
                     className={i === 1? 'topRow' : 'bottomRow'}
-                    Color={n%2===0?'backgroundColorPLONE':'backgroundColorPLTWO'}
+                    Color={n%2===0?'darkRow':'brightRow'}
                     key={`${i}${n}`}
                     pieceNumber={piece}
                     arrayIndex={n}
@@ -170,22 +140,20 @@ class App extends Component {
         </div>
       )
     });
-
+    //========================================================
     return (
       <div>
         <div className="App">
-            {backgammonArray}
+            {
+              this.props.componentState ?
+              backgammonArray :
+              <BoardRow
+                dimentions={this.state.dimentions}
+                initialPlace={this.state.initialDimention}
+              />
+            }
         </div>
-        <div className="dice">
-          <button
-            className="diceButton"
-            onClick={()=>this.dice()}>
-            <p>Dice</p>
-          </button>
-          <div className="marginTop">
-            {(this.state.x !== null)? this.state.x : null} {(this.state.y !== null)? this.state.y : null}
-          </div>
-        </div>
+        <Dice/>
       </div>
     );
   }
@@ -193,7 +161,9 @@ class App extends Component {
 
 export default connect((store)=>{
   return{
-    history: store.backgammon,
     backgammon: store.backgammon.backgammon,
+    diceX: store.dice.first,
+    diceY: store.dice.second,
+    componentState: store.changeComponent.componentState
   };
 })(App);
