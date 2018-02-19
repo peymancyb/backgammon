@@ -54,7 +54,6 @@ class App extends Component {
 
   validateSteps(indexOfRow,indexOfPiece){
     let arr = this.props.backgammon.map((forEachArray)=>forEachArray.slice());
-    //keep initial place
     let initialY = indexOfRow;
     let initialX = indexOfPiece;
     const initialDimention = {
@@ -106,7 +105,6 @@ class App extends Component {
         });
       }
       this.props.dispatch(changeComponent(false));
-
     }
 
 
@@ -119,7 +117,6 @@ class App extends Component {
 
 
   render() {
-    //========================================================
     let backgammonArray = this.props.backgammon.map((row, i) => {
       return (
         <div key={`row${i}`} className="flex flex-center">
@@ -134,19 +131,19 @@ class App extends Component {
                     key={`${i}${n}`}
                     pieceNumber={piece}
                     arrayIndex={n}
+                    pieceColor={((i===0 && n%11===0)||(i===1 && (n/5===1 || n/7===1))?"white":"black")}
                   />
               </div>
             ))}
         </div>
       )
     });
-    //========================================================
     return (
       <div>
         <div className="App">
             {
               this.props.componentState ?
-              backgammonArray :
+              backgammonArray:
               <BoardRow
                 dimentions={this.state.dimentions}
                 initialPlace={this.state.initialDimention}

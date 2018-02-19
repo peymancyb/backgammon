@@ -19,12 +19,12 @@ class Row extends Component {
 
   }
 
-  _renderPiece(items){
+  _renderPiece(items,pieceColor){
     let arr = [];
     for(let i=0 ; i < items ;i++){
       arr.push(
         <div key={`piece${i}`}>
-          <Piece/>
+          <Piece pieceColor={pieceColor}/>
         </div>
       );
     }
@@ -34,7 +34,7 @@ class Row extends Component {
   render() {
     return (
         <div className={`row ${this.props.className} ${this.props.Color}`}>
-          {this._renderPiece(this.props.pieceNumber)}
+          {this._renderPiece(this.props.pieceNumber,this.props.pieceColor)}
         </div>
     );
   }

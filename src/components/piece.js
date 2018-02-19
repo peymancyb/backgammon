@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 
 class Piece extends Component {
+  constructor(props){
+    super(props);
+  }
   render() {
     return (
         <div
@@ -8,7 +11,7 @@ class Piece extends Component {
             width:25,
             height:25,
             borderRadius:"50%",
-            backgroundColor:"black",
+            backgroundColor:`${this.props.pieceColor}`,
           }}
         />
     );

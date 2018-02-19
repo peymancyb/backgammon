@@ -1,5 +1,5 @@
 const backgammonInitial ={
-  backgammon:[[2,0,0,0,0,5,0,3,0,0,0,5],[2,0,0,0,0,5,0,3,0,0,0,5]]
+  backgammon:[[0,0,0,0,0,5,0,3,0,0,0,0],[2,0,0,0,0,0,0,0,0,0,0,5]]
 };
 
 const backgammonReducer = (state=backgammonInitial,action)=>{
