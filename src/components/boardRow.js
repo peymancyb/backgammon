@@ -13,6 +13,8 @@ class BoardRow extends Component {
     };
     this._clickOnRow = this._clickOnRow.bind(this);
     this._changeColor = this._changeColor.bind(this);
+    this.moveWhite = this.moveWhite.bind(this);
+    this.moveBlack = this.moveBlack.bind(this);
   }
 
   _changeColor(n,i){
@@ -27,21 +29,49 @@ class BoardRow extends Component {
     }
   }
 
+  moveWhite(indexOfRow,indexOfPiece){
+    let arr = this.props.backgammon.map((currentArray)=>currentArray.slice());
+    if(indexOfRow=== this.props.dimentions.y && indexOfPiece === this.props.dimentions.x){
+      arr[indexOfRow][indexOfPiece].unshift(arr[this.props.initialPlace.y][this.props.initialPlace.x].pop());
+      this.props.dispatch(resetX());
+      this.props.dispatch(changeBackgammonState(arr));
+      this.props.dispatch(changeComponent(true));
+    }else if(indexOfRow=== this.props.dimentions.y && indexOfPiece === this.props.dimentions.xSecond){
+      arr[indexOfRow][indexOfPiece].push(arr[this.props.initialPlace.y][this.props.initialPlace.x].pop());
+      this.props.dispatch(resetY());
+      this.props.dispatch(changeBackgammonState(arr));
+      this.props.dispatch(changeComponent(true));
+    }else{
+      this.props.dispatch(changeComponent(true));
+    }
+  }
+
+  moveBlack(indexOfRow,indexOfPiece){
+    let arr = this.props.backgammon.map((currentArray)=>currentArray.slice());
+    if(indexOfRow=== this.props.dimentions.y && indexOfPiece === this.props.dimentions.x){
+      arr[indexOfRow][indexOfPiece].push(arr[this.props.initialPlace.y][this.props.initialPlace.x].pop());
+      this.props.dispatch(resetX());
+      this.props.dispatch(changeBackgammonState(arr));
+      this.props.dispatch(changeComponent(true));
+    }else if(indexOfRow=== this.props.dimentions.y && indexOfPiece === this.props.dimentions.xSecond){
+      arr[indexOfRow][indexOfPiece].unshift(arr[this.props.initialPlace.y][this.props.initialPlace.x].pop());
+      this.props.dispatch(resetY());
+      this.props.dispatch(changeBackgammonState(arr));
+      this.props.dispatch(changeComponent(true));
+    }else{
+      this.props.dispatch(changeComponent(true));
+    }
+  }
+
   _clickOnRow(indexOfRow,indexOfPiece){
-      let arr = this.props.backgammon.map((currentArray)=>currentArray.slice());
-      if(indexOfRow=== this.props.dimentions.y && indexOfPiece === this.props.dimentions.x){
-        arr[indexOfRow][indexOfPiece].unshift(arr[this.props.initialPlace.y][this.props.initialPlace.x].pop());
-        this.props.dispatch(resetX());
-        this.props.dispatch(changeBackgammonState(arr));
-        this.props.dispatch(changeComponent(true));
-      }else if(indexOfRow=== this.props.dimentions.y && indexOfPiece === this.props.dimentions.xSecond){
-        arr[indexOfRow][indexOfPiece].push(arr[this.props.initialPlace.y][this.props.initialPlace.x].pop());
-        this.props.dispatch(resetY());
-        this.props.dispatch(changeBackgammonState(arr));
-        this.props.dispatch(changeComponent(true));
-      }else{
-        this.props.dispatch(changeComponent(true));
-      }
+    let arr = this.props.backgammon.map((currentArray)=>currentArray.slice());
+    if(arr[this.props.initialPlace.y][this.props.initialPlace.x][0].color == "black"){
+      return this.moveBlack(indexOfRow,indexOfPiece);
+    }else if(arr[this.props.initialPlace.y][this.props.initialPlace.x][0].color === "white"){
+      return this.moveWhite(indexOfRow,indexOfPiece);
+    }else{
+      this.props.dispatch(changeComponent(true));
+    }
   }
 
   render(){
