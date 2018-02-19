@@ -30,14 +30,12 @@ class BoardRow extends Component {
   _clickOnRow(indexOfRow,indexOfPiece){
       let arr = this.props.backgammon.map((currentArray)=>currentArray.slice());
       if(indexOfRow=== this.props.dimentions.y && indexOfPiece === this.props.dimentions.x){
-        arr[this.props.initialPlace.y][this.props.initialPlace.x] = arr[this.props.initialPlace.y][this.props.initialPlace.x] - 1;
-        arr[indexOfRow][indexOfPiece] = arr[indexOfRow][indexOfPiece] + 1;
+        arr[indexOfRow][indexOfPiece].unshift(arr[this.props.initialPlace.y][this.props.initialPlace.x].pop());
         this.props.dispatch(resetX());
         this.props.dispatch(changeBackgammonState(arr));
         this.props.dispatch(changeComponent(true));
       }else if(indexOfRow=== this.props.dimentions.y && indexOfPiece === this.props.dimentions.xSecond){
-        arr[this.props.initialPlace.y][this.props.initialPlace.x] = arr[this.props.initialPlace.y][this.props.initialPlace.x] - 1;
-        arr[indexOfRow][indexOfPiece] = arr[indexOfRow][indexOfPiece] + 1;
+        arr[indexOfRow][indexOfPiece].push(arr[this.props.initialPlace.y][this.props.initialPlace.x].pop());
         this.props.dispatch(resetY());
         this.props.dispatch(changeBackgammonState(arr));
         this.props.dispatch(changeComponent(true));
@@ -59,9 +57,8 @@ class BoardRow extends Component {
                     className={i === 1? 'topRow' : 'bottomRow'}
                     Color={this._changeColor(n,i)}
                     key={`${i}${n}`}
-                    pieceNumber={piece}
+                    pieceArray={piece}
                     arrayIndex={n}
-                    pieceColor={((i===0 && n%11===0)||(i===1 && (n/5===1 || n/7===1))?"white":"black")}
                   />
               </div>
             ))}

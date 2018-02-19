@@ -19,22 +19,19 @@ class Row extends Component {
 
   }
 
-  _renderPiece(items,pieceColor){
-    let arr = [];
-    for(let i=0 ; i < items ;i++){
-      arr.push(
-        <div key={`piece${i}`}>
-          <Piece pieceColor={pieceColor}/>
-        </div>
-      );
-    }
-    return arr;
+  _renderPiece(items) {
+    return items.map((item, i) => {
+        return (<div key={`piece${i}`}>
+          <Piece pieceColor={item.color}/>
+        </div>);
+    })
+
   }
 
   render() {
     return (
         <div className={`row ${this.props.className} ${this.props.Color}`}>
-          {this._renderPiece(this.props.pieceNumber,this.props.pieceColor)}
+          {this._renderPiece(this.props.pieceArray)}
         </div>
     );
   }

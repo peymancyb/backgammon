@@ -1,5 +1,34 @@
 const backgammonInitial ={
-  backgammon:[[2,0,0,0,0,5,0,3,0,0,0,5],[2,0,0,0,0,5,0,3,0,0,0,5]]
+  backgammon:[
+    [
+      [{color: 'white'}, {color: 'white'}],
+      [],
+      [],
+      [],
+      [],
+      [{color: 'black'}, {color: 'black'}, {color: 'black'}, {color: 'black'}, {color: 'black'}],
+      [],
+      [{color: 'white'}, {color: 'white'}, {color: 'white'}],
+      [],
+      [],
+      [],
+      [{color: 'black'}, {color: 'black'}, {color: 'black'}, {color: 'black'}, {color: 'black'}]
+    ],
+    [
+      [{color: 'black'}, {color: 'black'}],
+      [],
+      [],
+      [],
+      [],
+      [{color: 'white'}, {color: 'white'}, {color: 'white'}, {color: 'white'}, {color: 'white'}],
+      [],
+      [{color: 'white'}, {color: 'white'}, {color: 'white'}],
+      [],
+      [],
+      [],
+      [{color: 'black'}, {color: 'black'}, {color: 'black'}, {color: 'black'}, {color: 'black'}]
+    ]
+  ]
 };
 
 const backgammonReducer = (state=backgammonInitial,action)=>{

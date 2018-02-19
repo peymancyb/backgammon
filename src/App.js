@@ -129,9 +129,8 @@ class App extends Component {
                     className={i === 1? 'topRow' : 'bottomRow'}
                     Color={n%2===0?'darkRow':'brightRow'}
                     key={`${i}${n}`}
-                    pieceNumber={piece}
+                    pieceArray={piece}
                     arrayIndex={n}
-                    pieceColor={((i===0 && n%11===0)||(i===1 && (n/5===1 || n/7===1))?"white":"black")}
                   />
               </div>
             ))}
