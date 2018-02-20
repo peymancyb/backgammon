@@ -64,9 +64,28 @@ class App extends Component {
     };
     if(indexOfRow === 0){
       if(indexOfPiece+this.state.x>11 || indexOfPiece+this.state.y>11){
+        let arr = this.props.backgammon.map((forEachArray)=>forEachArray.slice());
         let x = ((this.state.x!==null)?(12-this.state.x)+(11-indexOfPiece):null);
         let xSecond = ((this.state.y!==null)?(12-this.state.y)+(11-indexOfPiece):null);
         let y = indexOfRow+1;
+        //==================
+        arr[y].forEach((child,index)=>{
+          if(index === x){
+            child.forEach((secondChild)=>{
+              if(secondChild.color === 'black'){
+                x=null;
+              }
+            });
+          }
+          if(index === xSecond){
+            child.forEach((secondChild)=>{
+              if(secondChild.color === 'black'){
+                xSecond=null;
+              }
+            });
+          }
+        });
+        //==================
         let dimentions = {
           x:x,
           xSecond:xSecond,
@@ -77,9 +96,28 @@ class App extends Component {
           initialDimention:initialDimention,
         });
       }else{
+        let arr = this.props.backgammon.map((forEachArray)=>forEachArray.slice());
         let x = ((this.state.x!==null)?indexOfPiece+this.state.x:null);
         let xSecond = ((this.state.y!==null)?indexOfPiece+this.state.y:null);
         let y = indexOfRow;
+        //==================
+        arr[y].forEach((child,index)=>{
+          if(index === x){
+            child.forEach((secondChild)=>{
+              if(secondChild.color === 'black'){
+                x=null;
+              }
+            });
+          }
+          if(index === xSecond){
+            child.forEach((secondChild)=>{
+              if(secondChild.color === 'black'){
+                xSecond=null;
+              }
+            });
+          }
+        });
+        //==================
         let dimentions = {
           x:x,
           xSecond:xSecond,
@@ -92,9 +130,28 @@ class App extends Component {
       }
     }
     if(indexOfRow === 1){
+      let arr = this.props.backgammon.map((forEachArray)=>forEachArray.slice());
       let x = ((this.state.x!==null)?indexOfPiece-this.state.x:null);
       let xSecond = ((this.state.y!==null)?indexOfPiece-this.state.y:null);
       let y = indexOfRow;
+      //==================
+      arr[y].forEach((child,index)=>{
+        if(index === x){
+          child.forEach((secondChild)=>{
+            if(secondChild.color === 'black'){
+              x=null;
+            }
+          });
+        }
+        if(index === xSecond){
+          child.forEach((secondChild)=>{
+            if(secondChild.color === 'black'){
+              xSecond=null;
+            }
+          });
+        }
+      });
+      //==================
       let dimentions = {
         x:x,
         xSecond:xSecond,
@@ -108,9 +165,8 @@ class App extends Component {
     this.props.dispatch(changeComponent(false));
   }
 //============================================================================
-//============================================================================
-//============================================================================
   validateBlack(indexOfRow,indexOfPiece){
+    let arr = this.props.backgammon.map((forEachArray)=>forEachArray.slice());
     let initialY = indexOfRow;
     let initialX = indexOfPiece;
     const initialDimention = {
@@ -118,9 +174,29 @@ class App extends Component {
       y:initialY
     };
     if(indexOfRow === 0){
-      let x = ((this.state.x!==null)?indexOfPiece-this.state.x:null);
-      let xSecond = ((this.state.y!==null)?indexOfPiece-this.state.y:null);
-      let y = indexOfRow;
+      let arr = this.props.backgammon.map((forEachArray)=>forEachArray.slice());
+      //=======================
+      var x = ((this.state.x!==null)?indexOfPiece-this.state.x:null);
+      var xSecond = ((this.state.y!==null)?indexOfPiece-this.state.y:null);
+      var y = indexOfRow;
+      //==================
+      arr[y].forEach((child,index)=>{
+        if(index === x){
+          child.forEach((secondChild)=>{
+            if(secondChild.color === 'white'){
+              x=null;
+            }
+          });
+        }
+        if(index === xSecond){
+          child.forEach((secondChild)=>{
+            if(secondChild.color === 'white'){
+              xSecond=null;
+            }
+          });
+        }
+      });
+      //==================
       let dimentions = {
         x:x,
         xSecond:xSecond,
@@ -133,23 +209,60 @@ class App extends Component {
     }
     if(indexOfRow === 1){
       if(indexOfPiece+this.state.x>11 || indexOfPiece+this.state.y>11){
+        let arr = this.props.backgammon.map((forEachArray)=>forEachArray.slice());
         let x = ((this.state.x!==null)?(12-this.state.x)+(11-indexOfPiece):null);
         let xSecond = ((this.state.y!==null)?(12-this.state.y)+(11-indexOfPiece):null);
         let y = indexOfRow-1;
+        //==================
+        arr[y].forEach((child,index)=>{
+          if(index === x){
+            child.forEach((secondChild)=>{
+              if(secondChild.color === 'white'){
+                x=null;
+              }
+            });
+          }
+          if(index === xSecond){
+            child.forEach((secondChild)=>{
+              if(secondChild.color === 'white'){
+                xSecond=null;
+              }
+            });
+          }
+        });
+        //==================
         let dimentions = {
           x:x,
           xSecond:xSecond,
           y:y,
         };
-        console.log(`dimentions: ${JSON.stringify(dimentions)}`);
         this.setState({
           dimentions:dimentions,
           initialDimention:initialDimention,
         });
       }else{
+        let arr = this.props.backgammon.map((forEachArray)=>forEachArray.slice());
         let x = ((this.state.x!==null)?indexOfPiece+this.state.x:null);
         let xSecond = ((this.state.y!==null)?indexOfPiece+this.state.y:null);
         let y = indexOfRow;
+        //==================
+        arr[y].forEach((child,index)=>{
+          if(index === x){
+            child.forEach((secondChild)=>{
+              if(secondChild.color === 'white'){
+                x=null;
+              }
+            });
+          }
+          if(index === xSecond){
+            child.forEach((secondChild)=>{
+              if(secondChild.color === 'white'){
+                xSecond=null;
+              }
+            });
+          }
+        });
+        //==================
         let dimentions = {
           x:x,
           xSecond:xSecond,
@@ -173,15 +286,14 @@ class App extends Component {
          }else{
            console.log('choose white');
          }
-  }else{
-     if(arr[indexOfRow][indexOfPiece][0].color == "black"){
-         return this.validateBlack(indexOfRow,indexOfPiece);
-       }else{
-         console.log('choose black');
+    }else{
+       if(arr[indexOfRow][indexOfPiece][0].color == "black"){
+           return this.validateBlack(indexOfRow,indexOfPiece);
+         }else{
+           console.log('choose black');
+        }
       }
     }
-  }
-
 
   componentWillReceiveProps(nextProps){
     this.setState({
@@ -192,7 +304,6 @@ class App extends Component {
 
 
   render() {
-    console.log(this.props.playerState);
     let backgammonArray = this.props.backgammon.map((row, i) => {
       return (
         <div key={`row${i}`} className="flex flex-center">

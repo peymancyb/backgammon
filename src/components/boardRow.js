@@ -33,12 +33,16 @@ class BoardRow extends Component {
     let arr = this.props.backgammon.map((currentArray)=>currentArray.slice());
     if(indexOfRow=== this.props.dimentions.y && indexOfPiece === this.props.dimentions.x){
       arr[indexOfRow][indexOfPiece].unshift(arr[this.props.initialPlace.y][this.props.initialPlace.x].pop());
+      //===================================
       this.props.dispatch(resetX());
+      //===================================
       this.props.dispatch(changeBackgammonState(arr));
       this.props.dispatch(changeComponent(true));
     }else if(indexOfRow=== this.props.dimentions.y && indexOfPiece === this.props.dimentions.xSecond){
       arr[indexOfRow][indexOfPiece].push(arr[this.props.initialPlace.y][this.props.initialPlace.x].pop());
+      //===================================
       this.props.dispatch(resetY());
+      //===================================
       this.props.dispatch(changeBackgammonState(arr));
       this.props.dispatch(changeComponent(true));
     }else{
@@ -50,12 +54,16 @@ class BoardRow extends Component {
     let arr = this.props.backgammon.map((currentArray)=>currentArray.slice());
     if(indexOfRow=== this.props.dimentions.y && indexOfPiece === this.props.dimentions.x){
       arr[indexOfRow][indexOfPiece].push(arr[this.props.initialPlace.y][this.props.initialPlace.x].pop());
+      //===================================
       this.props.dispatch(resetX());
+      //===================================
       this.props.dispatch(changeBackgammonState(arr));
       this.props.dispatch(changeComponent(true));
     }else if(indexOfRow=== this.props.dimentions.y && indexOfPiece === this.props.dimentions.xSecond){
       arr[indexOfRow][indexOfPiece].unshift(arr[this.props.initialPlace.y][this.props.initialPlace.x].pop());
-      this.props.dispatch(resetY());
+      //===================================
+        this.props.dispatch(resetY());
+      //===================================
       this.props.dispatch(changeBackgammonState(arr));
       this.props.dispatch(changeComponent(true));
     }else{

@@ -39,7 +39,6 @@ class Dice extends Component{
   }
 
   render(){
-    console.log(this.state.count);
     return(
       <div className='dice'>
         <button
@@ -50,7 +49,7 @@ class Dice extends Component{
         <div className="marginTop">
           {(this.state.x !== 0)? this.state.x : ''} {(this.state.y !== 0)? this.state.y : ''}
         </div>
-        {(this.state.count>0)?
+        {(this.props.diceX !== null && this.props.diceY !== null)?
           <div style={{marginTop:10}}>
             {(this.state.count%2===0)?
               <p>Black turn</p>
