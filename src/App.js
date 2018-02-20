@@ -167,10 +167,18 @@ class App extends Component {
 
   validateSteps(indexOfRow,indexOfPiece){
     let arr = this.props.backgammon.map((forEachArray)=>forEachArray.slice());
-    if(arr[indexOfRow][indexOfPiece][0].color == "black"){
-      return this.validateBlack(indexOfRow,indexOfPiece);
-    }else if(arr[indexOfRow][indexOfPiece][0].color === "white"){
-      return this.validateWhite(indexOfRow,indexOfPiece);
+    if(this.props.playerState===true){
+      if(arr[indexOfRow][indexOfPiece][0].color === "white"){
+           return this.validateWhite(indexOfRow,indexOfPiece);
+         }else{
+           console.log('choose white');
+         }
+  }else{
+     if(arr[indexOfRow][indexOfPiece][0].color == "black"){
+         return this.validateBlack(indexOfRow,indexOfPiece);
+       }else{
+         console.log('choose black');
+      }
     }
   }
 
@@ -184,6 +192,7 @@ class App extends Component {
 
 
   render() {
+    console.log(this.props.playerState);
     let backgammonArray = this.props.backgammon.map((row, i) => {
       return (
         <div key={`row${i}`} className="flex flex-center">
@@ -227,6 +236,7 @@ export default connect((store)=>{
     backgammon: store.backgammon.backgammon,
     diceX: store.dice.first,
     diceY: store.dice.second,
-    componentState: store.changeComponent.componentState
+    componentState: store.changeComponent.componentState,
+    playerState: store.changePlayer.player
   };
 })(App);

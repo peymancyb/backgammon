@@ -2,13 +2,13 @@ import { combineReducers,createStore } from 'redux';
 import diceReducer from './reducers/diceReducer';
 import backgammonReducer from './reducers/backgammonReducer';
 import changeComponentReducer from './reducers/changeComponentReducer';
-import playerTwoReducer from './reducers/playerTwoReducer';
+import changePlayerReducer from './reducers/changePlayerReducer';
 
 const reducer = combineReducers({
   backgammon: backgammonReducer,
-  playerTwo: playerTwoReducer,
   dice: diceReducer,
   changeComponent: changeComponentReducer,
+  changePlayer: changePlayerReducer
 });
 
 const store = createStore(reducer);
